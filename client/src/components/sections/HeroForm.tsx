@@ -152,6 +152,8 @@ const Marquee: React.FC = () => (
   </div>
 );
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL || '';
+
 // ── Success state ────────────────────────────────────────────────────────────
 const SuccessState: React.FC<{ onBook: () => void }> = ({ onBook }) => (
   <motion.div
@@ -192,7 +194,7 @@ const CalendarModal: React.FC<{ open: boolean; onClose: () => void; contactEmail
     if (!selected) return;
     setBooking(true);
     try {
-      await fetch('/api/book-calendar', {
+      await fetch(`${API_BASE}/api/book-calendar`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ slot: selected, email: contactEmail }),
@@ -295,7 +297,7 @@ const HeroForm: React.FC = () => {
         _hp: data._hp,
       };
 
-      const res = await fetch('/api/submit-lead', {
+      const res = await fetch(`${API_BASE}/api/submit-lead`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
